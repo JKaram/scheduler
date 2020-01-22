@@ -1,4 +1,6 @@
-  
+ 
+
+
 export const getAppointmentsForDay = (state, day) => {
   const selectedDay = state.days.find((d) => d.name === day);
   const selectedAppointments = [];
@@ -16,3 +18,18 @@ export const getAppointmentsForDay = (state, day) => {
   
  return selectedAppointments;
 }
+
+export const getInterview = (state, interview) => {
+
+  if (!interview) {
+    return null;
+  }
+
+  const outputInterview = {
+    ...interview,
+    interviewer: state.interviewers[interview.interviewer],
+  }
+
+  return outputInterview;
+}
+
