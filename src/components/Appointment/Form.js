@@ -5,7 +5,6 @@ import InterviewerList from '../InterviewerList';
 import Button from "../Button";
 
 export default function Form(props) {
-
   let [name, setName] = useState(props.name ? props.name : '');
   let [interviewer, setInterviewer] = useState(props.interviewer || null);
 
