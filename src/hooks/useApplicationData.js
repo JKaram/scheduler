@@ -73,12 +73,18 @@ export const useApplicationData = () => {
       [id]: appointment
     };
 
-    return axios.delete(`/api/appointments/${id}`, appointment).then(() => dispatch({
+    return axios.delete(`/api/appointments/${id}`, appointment)
+    .then(() => {
+      const dayObject = state.days.find(day => day.name === state.day);
+      state.days[dayObject.id - 1].spots++;})
+    .then(() => dispatch({
       type : SET_INTERVIEW,
       ...state,
        appointments 
     }))
+    
   }
+
 
   const bookInterview = (id, interview) => {
     const appointment = {
@@ -90,7 +96,12 @@ export const useApplicationData = () => {
       [id]: appointment
     };
 
-    return axios.put(`/api/appointments/${id}`, appointment).then(() => dispatch({
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then(() => {
+      const dayObject = state.days.find(day => day.name === state.day);
+      state.days[dayObject.id - 1].spots--;})
+    
+    .then(() => dispatch({
         type : SET_INTERVIEW,
         ...state,
         appointments
