@@ -11,7 +11,6 @@ import { useApplicationData } from "hooks/useApplicationData";
 
 
 export default function Application(props) {
-
   const {
     state,
     setState,
@@ -20,8 +19,8 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
 
-  console.log('useAppDATA', useApplicationData())
- 
+  
+
 
   const editInterview = (id, interview) => {
 
@@ -32,8 +31,8 @@ export default function Application(props) {
 
 
 
-    return axios.put(`/api/appointments/${id}`, appointment).then(() =>  setState((state) => {
-      
+    return axios.put(`/api/appointments/${id}`, appointment).then(() => setState((state) => {
+
       const appointments = {
         ...state.appointments,
         [id]: appointment
@@ -71,6 +70,8 @@ export default function Application(props) {
       </section>
       <section className="schedule">
 
+
+        {/* //  ------ Populate Appointment List      ------  // */}
 
         {getAppointmentsForDay(state, state.day).map(appointment => {
           const interview = getInterview(state, appointment.interview);

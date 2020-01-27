@@ -24,8 +24,6 @@ const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
 
-  console.log(props)
-
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -39,7 +37,9 @@ export default function Appointment(props) {
      .catch(error => transition(ERROR_DELETE, true));
   }
 
-
+  function countSpots(day) {
+    
+  }
 
   function onEdit() {
 
