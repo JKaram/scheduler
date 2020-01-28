@@ -32,19 +32,16 @@ export default function Appointment(props) {
   function cancelInterview(id) {
     transition(DELETING, true);
     props
-     .cancelInterview(props.id)
-     .then(() => transition(EMPTY))
-     .catch(error => transition(ERROR_DELETE, true));
+      .cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch(error => transition(ERROR_DELETE, true));
   }
 
-  function countSpots(day) {
-    
-  }
 
   function onEdit() {
 
     transition(CREATE)
-    props.editInterview(props.id, props.interview)
+    props.bookInterview(props.id, props.interview)
   }
 
   function onDelete() {
@@ -69,7 +66,7 @@ export default function Appointment(props) {
 
   return (
     <article className="appointment" data-testid="appointment">
-      
+
       <Header
         time={props.time}
       />
@@ -91,6 +88,7 @@ export default function Appointment(props) {
 
         />
       )}
+
 
       {mode === SHOW && (
         <Show
@@ -126,14 +124,14 @@ export default function Appointment(props) {
 
       {mode === ERROR_SAVE && (
         <Error
-          message={'Error cannot save'}
+          message={'Could not save appointment.'}
           onCancel={() => back()}
         />
       )}
 
       {mode === ERROR_DELETE && (
         <Error
-          message={'Error cannot delete'}
+          message={'Could not cancel appointment.'}
           onCancel={() => back()}
         />
       )}

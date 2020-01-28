@@ -7,13 +7,18 @@ import Appointment from "components/Appointment";
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "../helpers/selectors";
 import { useApplicationData } from "hooks/useApplicationData";
 
+import reducer, {
+  SET_DAY,
+  SET_APPLICATION_DATA,
+  SET_INTERVIEW
+} from "reducers/application";
+
 
 
 
 export default function Application(props) {
   const {
     state,
-    setState,
     setDay,
     bookInterview,
     cancelInterview
@@ -22,28 +27,7 @@ export default function Application(props) {
   
 
 
-  const editInterview = (id, interview) => {
-
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-
-
-
-    return axios.put(`/api/appointments/${id}`, appointment).then(() => setState((state) => {
-
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-
-      return {
-        ...state,
-        appointments
-      }
-    }))
-  }
+  
 
 
   return (
@@ -85,7 +69,6 @@ export default function Application(props) {
               interviewers={getInterviewersForDay(state, state.day)}
               bookInterview={bookInterview}
               cancelInterview={cancelInterview}
-              editInterview={editInterview}
             />
           )
         })}

@@ -15,6 +15,9 @@ export const getAppointmentsForDay = (state, day) => {
   return selectedAppointments;
 }
 
+export const getDayForAppointment = (state, id) => {
+  return state.days.findIndex(day => day.appointments.includes(id));
+}
 
 export const getInterviewersForDay = (state, day) => {
   const selectedDay = state.days.filter((d) => d.name === day)[0];
