@@ -6,7 +6,7 @@ Scheduler allows a user to book an appointment with an interviewer who is availa
 
 ## Check it Out!
 
-["Select the day and create an appointment"](https://github.com/JKaram/scheduler/blob/master/docs/chrome-capture.gif)
+!["Select the day and create an appointment"](https://github.com/JKaram/scheduler/blob/master/docs/chrome-capture.gif)
 
 ## Setup
 
