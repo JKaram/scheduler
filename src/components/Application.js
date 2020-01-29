@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios'
+import React from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment";
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "../helpers/selectors";
 import { useApplicationData } from "hooks/useApplicationData";
-
-import reducer, {
-  SET_DAY,
-  SET_APPLICATION_DATA,
-  SET_INTERVIEW
-} from "reducers/application";
-
 
 
 
@@ -23,12 +15,6 @@ export default function Application(props) {
     bookInterview,
     cancelInterview
   } = useApplicationData();
-
-  
-
-
-  
-
 
   return (
     <main className="layout">
