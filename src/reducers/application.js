@@ -1,13 +1,14 @@
-import { useEffect, useReducer } from 'react';
-import axios from 'axios';
-import { getDayForAppointment } from '../helpers/selectors'
-
 
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
-const reducer = (state, action) => {
+
+const getDayForAppointment = (state, id) => {
+  return state.days.findIndex(day => day.appointments.includes(id));
+}
+
+export default function reducer(state, action) {
   switch (action.type) {
     case SET_DAY:
       return { ...state, day: action.day };
@@ -39,71 +40,3 @@ const reducer = (state, action) => {
   }
 }
 
-export const useApplicationData = () => {
-
-
-  const [state, dispatch] = useReducer(reducer, {
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {},
-  });
-
-  const setDay = day => dispatch({ type: SET_DAY, day });
-
-
-  useEffect(() => {
-    const days = axios.get(`/api/days`)
-    const appointments = axios.get(`/api/appointments`)
-    const interviewers = axios.get(`/api/interviewers`)
-    Promise.all([
-      days,
-      appointments,
-      interviewers
-    ]).then((all) => {
-      dispatch({ type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data });
-    })
-  }, []);
-
-
-  const cancelInterview = (id) => {
-
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-
-
-    return axios.delete(`/api/appointments/${id}`, appointment)
-      .then(() => dispatch({
-        type: SET_INTERVIEW,
-        appointment
-      }))
-  }
-
-
-  const bookInterview = (id, interview) => {
-
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-
-    return axios.put(`/api/appointments/${id}`, appointment)
-      .then(() => dispatch({
-        type: SET_INTERVIEW,
-        appointment
-      }))
-  }
-
-
-
-  return {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  }
-
-
-}

@@ -7,6 +7,7 @@ const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
+//  ------ Reducer   ------  //
 const reducer = (state, action) => {
   switch (action.type) {
     case SET_DAY:
@@ -41,7 +42,6 @@ const reducer = (state, action) => {
 
 export const useApplicationData = () => {
 
-
   const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
@@ -51,7 +51,7 @@ export const useApplicationData = () => {
 
   const setDay = day => dispatch({ type: SET_DAY, day });
 
-
+  //  ------ API CALL  ------  //
   useEffect(() => {
     const days = axios.get(`/api/days`)
     const appointments = axios.get(`/api/appointments`)
@@ -65,7 +65,7 @@ export const useApplicationData = () => {
     })
   }, []);
 
-
+  //  ------ API Functions  ------  //
   const cancelInterview = (id) => {
 
     const appointment = {
@@ -73,14 +73,12 @@ export const useApplicationData = () => {
       interview: null
     };
 
-
     return axios.delete(`/api/appointments/${id}`, appointment)
       .then(() => dispatch({
         type: SET_INTERVIEW,
         appointment
       }))
   }
-
 
   const bookInterview = (id, interview) => {
 
@@ -95,8 +93,6 @@ export const useApplicationData = () => {
         appointment
       }))
   }
-
-
 
   return {
     state,
